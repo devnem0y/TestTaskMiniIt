@@ -1,7 +1,8 @@
 ﻿namespace UralHedgehog
 {
-    public interface IPlayer
+    public interface IPlayer : IPlayerUI
     {
-        public string Name { get; }
+        public void AddScore();
+        public void ResetScore();
     }
 }

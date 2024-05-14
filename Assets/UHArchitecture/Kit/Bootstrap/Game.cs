@@ -8,6 +8,9 @@ namespace UralHedgehog
     {
         public static Game Instance { get; private set; }
 
+        [SerializeField] private Level _level;
+        [SerializeField] private ComplexityData _complexity; //TODO: Пока заглушка
+
         private void Awake()
         {
             Instance = this;
@@ -21,7 +24,7 @@ namespace UralHedgehog
         protected override void Initialization()
         {
             base.Initialization();
-            UIManager = new UIManager(_settings);
+            UIManager = new UIManager(_settings, _player);
         }
 
         public override void ChangeState(GameState state)
@@ -36,17 +39,22 @@ namespace UralHedgehog
                     break;
                 case GameState.MAIN:
                     Debug.Log("<color=yellow>Main</color>");
-                    UIManager.OpenViewSettings();
+                    Cursor.visible = true;
+                    UIManager.OpenViewMainMenu(_level);
                     ScreenTransition.Show();
                     break;
                 case GameState.PLAY:
                     Debug.Log("<color=yellow>Play</color>");
+                    Cursor.visible = false;
+                    _level.Init(_complexity, _player);
                     break;
                 case GameState.VICTORY:
                     Debug.Log("<color=yellow>Victory</color>");
+                    Cursor.visible = true;
                     break;
                 case GameState.DEFEAT:
                     Debug.Log("<color=yellow>Defeat</color>");
+                    Cursor.visible = true;
                     break;
                 
                 default:

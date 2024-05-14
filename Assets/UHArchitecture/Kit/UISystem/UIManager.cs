@@ -5,12 +5,15 @@
         public class UIManager
         {
             private Data _wSettingsData;
+            private Data _wMainMenuData;
 
             private readonly ISettings _settings;
+            private readonly IPlayerUI _player;
             
-            public UIManager(ISettings settings)
+            public UIManager(ISettings settings, IPlayerUI player)
             {
                 _settings = settings;
+                _player = player;
             }
 
             #region Open
@@ -28,6 +31,12 @@
             {
                 _wSettingsData = new Data(nameof(WSettings), settings);
                 UIDispatcher.Send(EventUI.SHOW_WIDGET, _wSettingsData);
+            }
+            
+            public void OpenViewMainMenu(ILevel level) 
+            {
+                _wMainMenuData = new Data(nameof(WMainMenu), level);
+                UIDispatcher.Send(EventUI.SHOW_WIDGET, _wMainMenuData);
             }
 
             #endregion

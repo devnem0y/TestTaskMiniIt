@@ -1,24 +1,34 @@
-using UnityEngine;
+using System;
 using UralHedgehog;
 
 public class Player : PlayerBase, IPlayer
 {
-    public string Name { get; }
+    public int Score => GetCounter<Score>().Value;
+    public event Action<int> ChangeScore;
 
     public Player(PlayerData data)
     {
         Data = data;
-
-        Name = data.Name;
         
-        //TODO: Счетчики используются для ресурсов (в данном примере создали софт валюту и добавили к счетчикам)
-        var soft = new Soft(data.Soft);
         var score = new Score(0);
-        CountersAdd(soft, score);
+        CountersAdd(score);
     }
 
     public override void Save()
     {
-        Data = new PlayerData(Name, GetCounter<Soft>().Value);
+        //TODO: Сохраняем данные игрока, но в нашем случае их сейчас нет
+        //Data = new PlayerData();
+    }
+    
+    public void AddScore()
+    {
+        GetCounter<Score>().Add(1);
+        ChangeScore?.Invoke(Score);
+    }
+
+    public void ResetScore()
+    {
+        GetCounter<Score>().Withdraw(Score);
+        ChangeScore?.Invoke(Score);
     }
 }
