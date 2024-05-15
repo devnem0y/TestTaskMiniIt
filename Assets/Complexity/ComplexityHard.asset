@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1444965169c3f0544b25782a20c79783, type: 3}
+  m_Name: ComplexityHard
+  m_EditorClassIdentifier: 
+  _platform: {fileID: 4897848282525945754, guid: 717336d7fe9241e459664f82ec11963c, type: 3}
+  _platformWidth: 1.4
+  _ball: {fileID: 2081253428654147467, guid: 8ec554f2e3305774bbf3ce7395eb19eb, type: 3}
+  _ballForce: 740
+  _brick: {fileID: 7697721562024888832, guid: 3ef8f95271b732249b9961431d3d20a0, type: 3}
+  _bricksSize: 7

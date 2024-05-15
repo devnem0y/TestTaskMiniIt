@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1444965169c3f0544b25782a20c79783, type: 3}
-  m_Name: ComplexityData
+  m_Name: ComplexityEasy
   m_EditorClassIdentifier: 
   _platform: {fileID: 4897848282525945754, guid: 717336d7fe9241e459664f82ec11963c, type: 3}
-  _platformWidth: 2.5
+  _platformWidth: 3.5
   _ball: {fileID: 2081253428654147467, guid: 8ec554f2e3305774bbf3ce7395eb19eb, type: 3}
-  _ballForce: 620
+  _ballForce: 570
   _brick: {fileID: 7697721562024888832, guid: 3ef8f95271b732249b9961431d3d20a0, type: 3}
   _bricksSize: 3

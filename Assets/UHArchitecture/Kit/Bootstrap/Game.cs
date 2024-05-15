@@ -9,9 +9,10 @@ namespace UralHedgehog
         public static Game Instance { get; private set; }
 
         [SerializeField] private Level _level;
-        [SerializeField] private ComplexityData _complexity; //TODO: Пока заглушка
 
         private bool _isFirstLaunch;
+
+        public int Complexity { get; set; } = 1;
 
         private void Awake()
         {
@@ -53,7 +54,7 @@ namespace UralHedgehog
                 case GameState.PLAY:
                     Debug.Log("<color=yellow>Play</color>");
                     Cursor.visible = false;
-                    _level.Init(_complexity, _player);
+                    _level.Init(_player);
                     UIManager.ShowViewTop(_player);
                     break;
                 case GameState.VICTORY:

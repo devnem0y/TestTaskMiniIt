@@ -251,6 +251,10 @@ MonoBehaviour:
   _wrapper: {fileID: 232233303}
   _wrapperWalls: {fileID: 560610278}
   _wall: {fileID: 539434042550219212, guid: b27cda8109f1879429fbf07828660fff, type: 3}
+  _complexityDatas:
+  - {fileID: 11400000, guid: d565cf0a3d8bd4f438176ca9e3a85a11, type: 2}
+  - {fileID: 11400000, guid: 24861c02980d52e43bf769429701e3b1, type: 2}
+  - {fileID: 11400000, guid: c833e49f253cf9b45883a7d5988f4c57, type: 2}
 --- !u!4 &497718715
 Transform:
   m_ObjectHideFlags: 0

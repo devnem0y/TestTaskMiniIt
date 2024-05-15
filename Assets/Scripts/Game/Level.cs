@@ -14,6 +14,7 @@ public class Level : MonoBehaviour, ILevel
     [SerializeField] private Transform _wrapper;
     [SerializeField] private Transform _wrapperWalls;
     [SerializeField] private Wall _wall;
+    [SerializeField] private List<ComplexityData> _complexityDatas;
 
     private Camera _mainCamera;
     private Vector2 _screenBounds;
@@ -34,9 +35,9 @@ public class Level : MonoBehaviour, ILevel
         _mainCamera = Camera.main;
     }
 
-    public void Init(ComplexityData data, IPlayer player)
+    public void Init(IPlayer player)
     {
-        _data = data;
+        _data = _complexityDatas[Game.Instance.Complexity];
         _player = player;
         
         _screenBounds = _mainCamera.ScreenToWorldPoint(
