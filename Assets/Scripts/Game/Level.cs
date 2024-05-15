@@ -46,7 +46,7 @@ public class Level : MonoBehaviour, ILevel
     public void Load()
     {
         _player.ResetScore();
-        _countBall = 3;
+        _player.SetBall();
         
         CreateWalls();
         CreatePlatform();
@@ -65,7 +65,7 @@ public class Level : MonoBehaviour, ILevel
         Destroy(_platform.gameObject);
         ClearChild(_wrapper);
         ClearChild(_wrapperWalls);
-        RemoveBall();
+        ClearBall();
     }
 
     private void CreateWalls()
@@ -137,11 +137,11 @@ public class Level : MonoBehaviour, ILevel
         
         if (_bricks.Count > 0) return;
 
-        RemoveBall();
+        ClearBall();
         Game.Instance.ChangeState(GameState.VICTORY);
     }
 
-    private void RemoveBall()
+    private void ClearBall()
     {
         if (_ball == null) return;
         
@@ -151,11 +151,11 @@ public class Level : MonoBehaviour, ILevel
 
     private void Failing()
     {
-        _countBall--;
+        _player.RemoveBall();
         
-        if (_countBall != 0) return;
+        if (_player.Balls != 0) return;
         
-        RemoveBall();
+        ClearBall();
         Game.Instance.ChangeState(GameState.DEFEAT);
     }
 }

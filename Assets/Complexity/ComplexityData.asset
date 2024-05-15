@@ -17,4 +17,4 @@ MonoBehaviour:
   _ball: {fileID: 2081253428654147467, guid: 8ec554f2e3305774bbf3ce7395eb19eb, type: 3}
   _ballForce: 620
   _brick: {fileID: 7697721562024888832, guid: 3ef8f95271b732249b9961431d3d20a0, type: 3}
-  _bricksSize: 7
+  _bricksSize: 3

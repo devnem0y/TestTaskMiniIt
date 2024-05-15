@@ -15,6 +15,11 @@
         public Score(int value) : base(value) { }
     }
     
+    public class BallCount : Counter
+    {
+        public BallCount(int value) : base(value) { }
+    }
+    
     public class Experience : Counter
     {
         public Experience(int value) : base(value) { }

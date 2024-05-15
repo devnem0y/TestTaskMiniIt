@@ -6,6 +6,8 @@
         {
             private Data _wSettingsData;
             private Data _wMainMenuData;
+            private Data _wLoseWinData;
+            private Data _pTopData;
 
             private readonly ISettings _settings;
             private readonly IPlayerUI _player;
@@ -38,6 +40,18 @@
                 _wMainMenuData = new Data(nameof(WMainMenu), level);
                 UIDispatcher.Send(EventUI.SHOW_WIDGET, _wMainMenuData);
             }
+            
+            public void OpenViewLoseWin(ILevel level) 
+            {
+                _wLoseWinData = new Data(nameof(WLoseWin), level);
+                UIDispatcher.Send(EventUI.SHOW_WIDGET, _wLoseWinData);
+            }
+            
+            public void ShowViewTop(IPlayerUI player) 
+            {
+                _pTopData = new Data(nameof(PTop), player);
+                UIDispatcher.Send(EventUI.SHOW_WIDGET, _pTopData);
+            }
 
             #endregion
 
@@ -51,6 +65,11 @@
             public void CloseViewSettings()
             {
                 UIDispatcher.Send(EventUI.KILL, _wSettingsData);
+            }
+            
+            public void HideViewTop()
+            {
+                UIDispatcher.Send(EventUI.HIDE_WIDGET, _pTopData);
             }
 
             #endregion
