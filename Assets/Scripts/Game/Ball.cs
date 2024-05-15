@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UralHedgehog;
 
@@ -11,6 +12,8 @@ public class Ball : MonoBehaviour
     private bool _isMove;
 
     private Transform Transform => transform;
+
+    public event Action Fail;
 
     private void Awake()
     {
@@ -43,9 +46,9 @@ public class Ball : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-    
         if (other.transform.CompareTag("Ground"))
         {
+            Fail?.Invoke();
             Reboot();
         }
     }

@@ -8,9 +8,15 @@ public class Level : MonoBehaviour, ILevel
     private const float ELEMENT_WIDTH = 1.76f;
     private const float ELEMENT_HEIGHT = 0.52f;
     private const float OFFSET = 1.5f;
+    private const float OFFSET_WALL = 0.1f;
+    private const float SIZE_WALL = 0.5f;
     
     [SerializeField] private Transform _wrapper;
+    [SerializeField] private Transform _wrapperWalls;
+    [SerializeField] private Wall _wall;
 
+    private Camera _mainCamera;
+    private Vector2 _screenBounds;
     private ComplexityData _data;
     private IPlayer _player;
     private Platform _platform;
@@ -22,11 +28,19 @@ public class Level : MonoBehaviour, ILevel
     
     public event Action Completed;
     public event Action Lose;
-    
+
+    private void Awake()
+    {
+        _mainCamera = Camera.main;
+    }
+
     public void Init(ComplexityData data, IPlayer player)
     {
         _data = data;
         _player = player;
+        
+        _screenBounds = _mainCamera.ScreenToWorldPoint(
+            new Vector3(Screen.width, Screen.height, _mainCamera.transform.position.z));
     }
     
     public void Load()
@@ -34,6 +48,7 @@ public class Level : MonoBehaviour, ILevel
         _player.ResetScore();
         _countBall = 3;
         
+        CreateWalls();
         CreatePlatform();
         CreateBall();
         CreateBricks();
@@ -48,24 +63,40 @@ public class Level : MonoBehaviour, ILevel
     public void Clear()
     {
         Destroy(_platform.gameObject);
-        ClearBricks(_wrapper);
+        ClearChild(_wrapper);
+        ClearChild(_wrapperWalls);
+        RemoveBall();
+    }
+
+    private void CreateWalls()
+    {
+        var wUp = Instantiate(_wall, _wrapperWalls);
+        wUp.Init(new Vector2( 0f, _screenBounds.y + OFFSET_WALL), new Vector2(_screenBounds.x * 2, SIZE_WALL));
+        var wDown = Instantiate(_wall, _wrapperWalls);
+        wDown.Init(new Vector2( 0f, _screenBounds.y * - 1 - OFFSET_WALL), new Vector2(_screenBounds.x * 2, SIZE_WALL), true);
+        var wLeft = Instantiate(_wall, _wrapperWalls);
+        wLeft.Init(new Vector2( _screenBounds.x * - 1 - OFFSET_WALL, 0f), new Vector2(SIZE_WALL, _screenBounds.y * 2));
+        var wRight = Instantiate(_wall, _wrapperWalls);
+        wRight.Init(new Vector2( _screenBounds.x + OFFSET_WALL, 0f), new Vector2(SIZE_WALL, _screenBounds.y * 2));
+        
     }
 
     private void CreatePlatform()
     {
         _platform = Instantiate(_data.Platform, new Vector3(0f, -4f), Quaternion.identity, transform);
-        _platform.Init(_data.PlatformWidth);
+        _platform.Init(_screenBounds, _data.PlatformWidth);
     }
 
     private void CreateBall()
     {
         _ball = Instantiate(_data.Ball, transform);
         _ball.Init(_platform, _data.BallForce);
+        _ball.Fail += Failing;
     }
     
     private void CreateBricks()
     {
-        ClearBricks(_wrapper);
+        ClearChild(_wrapper);
         
         _gridSize = _data.BricksSize;
         var brickId = 0;
@@ -94,12 +125,9 @@ public class Level : MonoBehaviour, ILevel
         }
     }
     
-    private static void ClearBricks(Transform wrapper)
+    private static void ClearChild(Transform wrapper)
     {
-        while (wrapper.childCount > 0) 
-        {
-            DestroyImmediate(wrapper.GetChild(0).gameObject);
-        }
+        while (wrapper.childCount > 0) DestroyImmediate(wrapper.GetChild(0).gameObject);
     }
     
     private void RemoveBrick()
@@ -109,12 +137,25 @@ public class Level : MonoBehaviour, ILevel
         
         if (_bricks.Count > 0) return;
 
+        RemoveBall();
         Game.Instance.ChangeState(GameState.VICTORY);
+    }
+
+    private void RemoveBall()
+    {
+        if (_ball == null) return;
+        
+        _ball.Fail -= Failing;
+        Destroy(_ball.gameObject);
     }
 
     private void Failing()
     {
         _countBall--;
-        if (_countBall == 0) Game.Instance.ChangeState(GameState.DEFEAT);
+        
+        if (_countBall != 0) return;
+        
+        RemoveBall();
+        Game.Instance.ChangeState(GameState.DEFEAT);
     }
 }

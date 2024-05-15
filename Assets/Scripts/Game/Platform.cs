@@ -3,9 +3,11 @@ using UralHedgehog;
 
 public class Platform : MonoBehaviour, IPlatform
 {
-    private Camera _mainCamera;
+    private const float OFFSET = 0.2f;
+    
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider2D;
+    private Camera _mainCamera;
     private Vector2 _screenBounds;
     private float _platformShift;
     private float _leftClamp;
@@ -19,20 +21,19 @@ public class Platform : MonoBehaviour, IPlatform
 
     private void Awake()
     {
-        _mainCamera = Camera.main;
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _boxCollider2D = GetComponent<BoxCollider2D>();
     }
     
-    public void Init(float platformWidth)
+    public void Init(Vector2 screenBounds, float platformWidth)
     {
-        _screenBounds = _mainCamera.ScreenToWorldPoint(
-            new Vector3(Screen.width, Screen.height, _mainCamera.transform.position.z));
+        _screenBounds = screenBounds;
+        _mainCamera = Camera.main;
         
         _spriteRenderer.size = new Vector2(platformWidth, _spriteRenderer.size.y);
         _boxCollider2D.size = new Vector2(platformWidth, _boxCollider2D.size.y);
         
-        _platformShift = _spriteRenderer.bounds.size.x / 2 * -1;
+        _platformShift = (_spriteRenderer.bounds.size.x / 2 * -1) - OFFSET;
         _leftClamp = _screenBounds.x * -1 - _platformShift;
         _rightClamp = _screenBounds.x + _platformShift;
     }
