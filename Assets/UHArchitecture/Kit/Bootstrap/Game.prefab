@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4410706757767431729}
   - component: {fileID: 4825667196653231922}
+  - component: {fileID: 539855068391752299}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -52,6 +53,30 @@ MonoBehaviour:
   _audioMixer: {fileID: 24100000, guid: da9ec1a4d53de364aa35ce645567570f, type: 2}
   _audioResources: {fileID: 11400000, guid: e6f72874f0ca96f42ab9be2a8f01f222, type: 2}
   _screenTransition: {fileID: 2402895376572982100}
+  _level: {fileID: 0}
+  _audio: {fileID: 539855068391752299}
+--- !u!114 &539855068391752299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514689542181796392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a957ef4a8f0567741a1dcbbc21ad6621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUIElement: 0
+  musics: []
+  sounds:
+  - elementName: Win
+    loop: 0
+    track: 13
+  - elementName: GameOver
+    loop: 0
+    track: 12
+  voices: []
 --- !u!1001 &1123314585695001885
 PrefabInstance:
   m_ObjectHideFlags: 0

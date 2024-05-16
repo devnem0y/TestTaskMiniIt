@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UralHedgehog;
@@ -11,6 +12,9 @@ public class WSettings : Widget
     [SerializeField] private Button _btnComplexityRight;
     [SerializeField] private Button _btnClose;
     [SerializeField] private Slider _sound;
+    
+    [SerializeField] private AudioComponent _audio;
+    [SerializeField] private Animator _animator;
     
     private readonly string[] _complexityLabel = {"EASY", "NORMAL", "HARD"};
 
@@ -28,6 +32,8 @@ public class WSettings : Widget
     {
         _settings = (ISettings) param[0];
         
+        _audio.Init();
+        
         _sound.value = _settings.VolumeSound;
         _sound.onValueChanged.AddListener(delegate { _settings.ChangeVolumeSound(_sound.value); });
         
@@ -36,12 +42,14 @@ public class WSettings : Widget
     
     private void OnComplexityLeft()
     {
+        _audio.Play(Sound.UI_BUTTON_CLICK_1);
         Game.Instance.Complexity--;
         SetComplexity();
     }
     
     private void OnComplexityRight()
     {
+        _audio.Play(Sound.UI_BUTTON_CLICK_1);
         Game.Instance.Complexity++;
         SetComplexity();
     }
@@ -51,5 +59,25 @@ public class WSettings : Widget
         _lblComplexity.text = _complexityLabel[Game.Instance.Complexity];
         _btnComplexityLeft.interactable = Game.Instance.Complexity != 0;
         _btnComplexityRight.interactable = Game.Instance.Complexity != _complexityLabel.Length - 1;
+    }
+    
+    public override void Show()
+    {
+        _animator.Play("Show");
+        base.Show();
+    }
+
+    public override void Hide()
+    {
+        _audio.Play(Sound.UI_BUTTON_CLICK_0);
+        StartCoroutine(AnimHide());
+    }
+
+    private IEnumerator AnimHide()
+    {
+        _animator.Play("Hide");
+        var totalTime = _animator.GetCurrentAnimatorClipInfo(0).Length;
+        yield return new WaitForSeconds(totalTime);
+        base.Hide();
     }
 }

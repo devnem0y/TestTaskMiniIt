@@ -16,6 +16,14 @@ namespace UralHedgehog
         UI_BUTTON_CLICK_1,
         UI_PANEL_SHOW,
         UI_PANEL_HIDE,
+        
+        FX_0,
+        FX_1,
+        FX_2,
+        FX_3,
+        FX_4,
+        GAME_OVER,
+        WIN,
     }
 
     public enum Music

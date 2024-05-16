@@ -9,6 +9,7 @@ namespace UralHedgehog
         public static Game Instance { get; private set; }
 
         [SerializeField] private Level _level;
+        [SerializeField] private AudioComponent _audio;
 
         private bool _isFirstLaunch;
 
@@ -28,6 +29,7 @@ namespace UralHedgehog
         {
             base.Initialization();
             UIManager = new UIManager(_settings, _player);
+            _audio.Init();
         }
 
         public override void ChangeState(GameState state)
@@ -62,12 +64,14 @@ namespace UralHedgehog
                     Cursor.visible = true;
                     UIManager.HideViewTop();
                     UIManager.OpenViewLoseWin(_level);
+                    _audio.Play(Sound.WIN);
                     break;
                 case GameState.DEFEAT:
                     Debug.Log("<color=yellow>Defeat</color>");
                     Cursor.visible = true;
                     UIManager.HideViewTop();
                     UIManager.OpenViewLoseWin(_level);
+                    _audio.Play(Sound.GAME_OVER);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

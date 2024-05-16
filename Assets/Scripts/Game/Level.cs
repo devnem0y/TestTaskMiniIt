@@ -116,7 +116,7 @@ public class Level : MonoBehaviour, ILevel
             {
                 var position = new Vector2(minX + x * ELEMENT_WIDTH, maxY - y * ELEMENT_HEIGHT);
                 var b = Instantiate(_data.Brick, position, Quaternion.identity, _wrapper);
-                b.Init(RemoveBrick);
+                b.Init(RemoveBrick, transform);
                 _bricks.Add(brickId);
                 brickId++;
             }

@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9254902, g: 0.9254902, b: 0.9254902, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audio: {fileID: 5493034810777426716}
+  _vfx: {fileID: 1806546423147102, guid: e1c3f69341f091f4c90f4d4ed61e59dc, type: 3}
 --- !u!114 &5493034810777426716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,5 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isUIElement: 0
   musics: []
-  sounds: []
+  sounds:
+  - elementName: Fx_0
+    loop: 0
+    track: 7
   voices: []

@@ -13,5 +13,41 @@ MonoBehaviour:
   m_Name: AudioResources
   m_EditorClassIdentifier: 
   _musics: []
-  _sounds: []
+  _sounds:
+  - elementName: Fx_0
+    clip: {fileID: 8300000, guid: 30dee108356dacd4d8344807c2ab5d3f, type: 3}
+    volume: 0.75
+    track: 7
+  - elementName: Fx_1
+    clip: {fileID: 8300000, guid: 0f878723f754ff641b0901a8b7878d72, type: 3}
+    volume: 0.75
+    track: 8
+  - elementName: Fx_2
+    clip: {fileID: 8300000, guid: ef0a63a57666b6640904c86e54ab83bb, type: 3}
+    volume: 0.75
+    track: 9
+  - elementName: Fx_3
+    clip: {fileID: 8300000, guid: d3f96708d5524d843b09be013586b03b, type: 3}
+    volume: 0.4
+    track: 10
+  - elementName: Fx_4
+    clip: {fileID: 8300000, guid: 61de8bf1ec9f0f44386b67b1f26677c5, type: 3}
+    volume: 0.4
+    track: 11
+  - elementName: GameOver
+    clip: {fileID: 8300000, guid: 64f1b64e4ff1e6241a741553dd1be0bd, type: 3}
+    volume: 0.75
+    track: 12
+  - elementName: Win
+    clip: {fileID: 8300000, guid: a6890a3fb2252dc4e961a34cc3bfea78, type: 3}
+    volume: 0.75
+    track: 13
+  - elementName: Button_click_0
+    clip: {fileID: 8300000, guid: 002dfd5ca7207494dbd36ebb05f2d39d, type: 3}
+    volume: 0.75
+    track: 3
+  - elementName: Button_click_1
+    clip: {fileID: 8300000, guid: ca752ede8168a704bb8fe5a8f27bf7d0, type: 3}
+    volume: 0.75
+    track: 4
   _voices: []

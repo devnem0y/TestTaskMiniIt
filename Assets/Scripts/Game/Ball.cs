@@ -5,6 +5,9 @@ using UralHedgehog;
 public class Ball : MonoBehaviour
 {
     private const int SPEED = 220;
+
+    [SerializeField] private AudioComponent _audio;
+    [SerializeField] private TrailRenderer _trail;
     
     private IPlatform _platform;
     private Rigidbody2D _rigidbody;
@@ -25,6 +28,8 @@ public class Ball : MonoBehaviour
         _platform = platform;
         _force = ballForce;
         
+        _audio.Init();
+        
         Reboot();
     }
 
@@ -37,10 +42,13 @@ public class Ball : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            _rigidbody.simulated = true;
             _rigidbody.isKinematic = false;
             _rigidbody.AddForce(new Vector2(0f, _force));
             _isMove = true;
-            //AudioManager.instance.PlaySound("fx_1");
+            _trail.enabled = true;
+
+            //_audio.Play(Sound.FX_2);
         }
     }
     
@@ -48,6 +56,7 @@ public class Ball : MonoBehaviour
     {
         if (other.transform.CompareTag("Ground"))
         {
+            _audio.Play(Sound.FX_4);
             Fail?.Invoke();
             Reboot();
         }
@@ -66,14 +75,16 @@ public class Ball : MonoBehaviour
                 ? new Vector2(-Mathf.Abs(difference * _force - SPEED), _force)
                 : new Vector2(Mathf.Abs(difference * _force - SPEED), _force));
 
-            //AudioManager.instance.PlaySound("fx_2");
+            _audio.Play(Sound.FX_2);
         }
     }
 
     private void Reboot()
     {
         _isMove = false;
+        _trail.enabled = false;
         _rigidbody.isKinematic = true;
+        _rigidbody.simulated = false;
         _rigidbody.bodyType = RigidbodyType2D.Kinematic;
         Transform.position = new Vector2(_platform.Position.x, _platform.Position.y + 0.43f);
         Transform.rotation = Quaternion.identity;
