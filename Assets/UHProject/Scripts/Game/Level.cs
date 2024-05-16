@@ -63,7 +63,7 @@ public class Level : MonoBehaviour, ILevel
 
     public void Clear()
     {
-        Destroy(_platform.gameObject);
+        if (_platform != null) Destroy(_platform.gameObject);
         ClearChild(_wrapper);
         ClearChild(_wrapperWalls);
         ClearBall();
@@ -139,6 +139,7 @@ public class Level : MonoBehaviour, ILevel
         if (_bricks.Count > 0) return;
 
         ClearBall();
+        Destroy(_platform.gameObject);
         Game.Instance.ChangeState(GameState.VICTORY);
     }
 

@@ -3,7 +3,7 @@ using UralHedgehog;
 
 public class Platform : MonoBehaviour, IPlatform
 {
-    private const float OFFSET = 0.2f;
+    private const float OFFSET = 0.05f;
     
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider2D;
