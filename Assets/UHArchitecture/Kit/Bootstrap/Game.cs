@@ -12,7 +12,7 @@ namespace UralHedgehog
         [SerializeField] private AudioComponent _audio;
 
         private bool _isFirstLaunch;
-
+        
         public int Complexity { get; set; } = 1;
 
         private void Awake()
@@ -76,6 +76,11 @@ namespace UralHedgehog
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.P)) SetPause(!Pause);
         }
     }
 }

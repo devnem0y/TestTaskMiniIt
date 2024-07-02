@@ -40,7 +40,10 @@ public class Platform : MonoBehaviour, IPlatform
 
     private void LateUpdate()
     {
-        if (Game.Instance.GameState == GameState.PLAY) Movement();
+        if (Game.Instance.GameState != GameState.PLAY) return;
+        if (Game.Instance.Pause) return;
+            
+        Movement();
     }
 
     private void Movement()

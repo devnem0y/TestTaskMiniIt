@@ -9,14 +9,30 @@ public class WLoseWin : Widget
 {
     [SerializeField] private TMP_Text _lblTitle;
     [SerializeField] private Button _btnRestart;
+    [SerializeField] private Button _btnPlay;
     [SerializeField] private Button _btnBackMenu;
     
     [SerializeField] private AudioComponent _audio;
     [SerializeField] private Animator _animator;
 
+    private ILevel _level;
+
+    private bool _showAd;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        //YandexGame.CloseFullAdEvent += CloseFullAd;
+    }
+
+    private void OnDestroy()
+    {
+        //YandexGame.CloseFullAdEvent -= CloseFullAd;
+    }
+    
     public override void Init(params object[] param)
     {
-        var level = (ILevel)param[0];
+        _level = (ILevel)param[0];
         
         _audio.Init();
         
@@ -25,15 +41,24 @@ public class WLoseWin : Widget
         _btnBackMenu.onClick.AddListener(() =>
         {
             Game.Instance.ChangeState(GameState.MAIN);
-            level.Clear();
+            _level.Clear();
             Hide();
         });
         
+        _btnPlay.onClick.AddListener(OnRestart);
+        
         _btnRestart.onClick.AddListener(() =>
         {
-            Game.Instance.ChangeState(GameState.PLAY);
-            level.Reload();
-            Hide();
+            //TODO: Show Ad
+            
+            /*if (YandexGame.allowedFullAd)
+            {
+                _showAd = true;
+                YandexGame.FullscreenShow();
+                _btnRestart.gameObject.SetActive(false);
+                _btnPlay.gameObject.SetActive(true);
+            }
+            else*/ OnRestart();
         });
     }
     
@@ -55,5 +80,12 @@ public class WLoseWin : Widget
         var totalTime = _animator.GetCurrentAnimatorClipInfo(0).Length;
         yield return new WaitForSeconds(totalTime);
         base.Hide();
+    }
+
+    private void OnRestart()
+    {
+        Game.Instance.ChangeState(GameState.PLAY);
+        _level.Reload();
+        Hide();
     }
 }

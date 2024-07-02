@@ -21,6 +21,9 @@ namespace UralHedgehog
         public AudioManager AudioManager { get; private set; }
         public UIManager UIManager { get; protected set; }
         public GameState GameState { get; private set; }
+        
+        public bool Pause { get; private set; }
+        public bool SoundOn { get; set; }
 
         public ScreenTransition ScreenTransition => _screenTransition;
 
@@ -32,6 +35,8 @@ namespace UralHedgehog
         
         protected Settings _settings;
         protected Player _player;
+
+        protected int _soundIndex;
 
         protected void Run()
         {
@@ -81,6 +86,12 @@ namespace UralHedgehog
         {
             GameState = state;
         }
+        
+        public void SetPause(bool pause)
+        {
+            Pause = pause;
+            Time.timeScale = Pause ? 0 : 1;
+        }
 
         /// <summary>
         /// Base не удалять! Все что нужно писать после.
@@ -93,6 +104,28 @@ namespace UralHedgehog
         private void OnLocalize()
         {
             LocalizationManager.OnLocalize();
+        }
+        
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if (hasFocus)
+            {
+                if (Pause)
+                {
+                    if (SoundOn) _settings.ChangeVolumeMaster(1f);
+                    if (GameState == GameState.PLAY) SetPause(false);
+                }
+                else
+                {
+                    if (SoundOn) _settings.ChangeVolumeMaster(1f);
+                    SetPause(false);
+                }
+            }
+            else
+            {
+                if (SoundOn) _settings.ChangeVolumeMaster(0f);
+                if (GameState == GameState.PLAY) SetPause(true);
+            }
         }
         
         private void OnApplicationQuit()
