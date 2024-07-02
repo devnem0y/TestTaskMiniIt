@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 using UralHedgehog.UI;
+using YG;
 
 namespace UralHedgehog
 {
@@ -46,6 +47,7 @@ namespace UralHedgehog
         
         private IEnumerator AlternateСall()
         {
+            yield return new WaitUntil(() => YandexGame.SDKEnabled);
             _loader.Load();
             yield return new WaitUntil(() => _loader.IsLoaded);
             Loading?.Invoke();
@@ -70,6 +72,8 @@ namespace UralHedgehog
             _player = new Player(_loader.UserInfo.PlayerData);
             
             _init = true;
+            
+            YandexGame.GameReadyAPI();
         }
 
         public void SaveSettings()

@@ -80,7 +80,7 @@ namespace UralHedgehog
 
         private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.P)) SetPause(!Pause);
+            //if (Input.GetKeyUp(KeyCode.P)) SetPause(!Pause);
         }
     }
 }

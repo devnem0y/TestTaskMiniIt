@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using UnityEngine;
+using YG;
 
 namespace UralHedgehog
 {
@@ -33,7 +34,8 @@ namespace UralHedgehog
             
             if (isCloud)
             {
-                //TODO: Хранение в облако, реализовать
+                YandexGame.savesData.svFile = json;
+                YandexGame.SaveProgress();
             }
             
             Debug.Log("Data save: <color=green>DONE</color>");

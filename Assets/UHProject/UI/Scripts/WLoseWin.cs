@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UralHedgehog;
 using UralHedgehog.UI;
+using YG;
 
 public class WLoseWin : Widget
 {
@@ -17,17 +18,15 @@ public class WLoseWin : Widget
 
     private ILevel _level;
 
-    private bool _showAd;
-
     protected override void Awake()
     {
         base.Awake();
-        //YandexGame.CloseFullAdEvent += CloseFullAd;
+        YandexGame.CloseFullAdEvent += CloseFullAd;
     }
 
     private void OnDestroy()
     {
-        //YandexGame.CloseFullAdEvent -= CloseFullAd;
+        YandexGame.CloseFullAdEvent -= CloseFullAd;
     }
     
     public override void Init(params object[] param)
@@ -51,14 +50,13 @@ public class WLoseWin : Widget
         {
             //TODO: Show Ad
             
-            /*if (YandexGame.allowedFullAd)
+            if (YandexGame.allowedFullAd)
             {
-                _showAd = true;
                 YandexGame.FullscreenShow();
                 _btnRestart.gameObject.SetActive(false);
                 _btnPlay.gameObject.SetActive(true);
             }
-            else*/ OnRestart();
+            else OnRestart();
         });
     }
     
@@ -87,5 +85,11 @@ public class WLoseWin : Widget
         Game.Instance.ChangeState(GameState.PLAY);
         _level.Reload();
         Hide();
+    }
+    
+    private void CloseFullAd()
+    {
+        _btnPlay.gameObject.SetActive(true);
+        _btnRestart.gameObject.SetActive(false);
     }
 }

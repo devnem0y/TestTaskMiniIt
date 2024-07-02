@@ -8,7 +8,7 @@ public class WMainMenu : Widget
 {
     [SerializeField] private Button _btnPlay;
     [SerializeField] private Button _btnSettings;
-    [SerializeField] private Button _btnExit;
+    //[SerializeField] private Button _btnExit;
 
     [SerializeField] private AudioComponent _audio;
     [SerializeField] private Animator _animator;
@@ -27,14 +27,6 @@ public class WMainMenu : Widget
         {
             _audio.Play(Sound.UI_BUTTON_CLICK_0);
             Game.Instance.UIManager.OpenViewSettings();
-        });
-        
-        _btnExit.onClick.AddListener(() =>
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            Application.Quit();
         });
     }
 

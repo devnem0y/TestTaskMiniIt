@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using UnityEngine;
+using YG;
 
 namespace UralHedgehog
 {
@@ -49,7 +50,8 @@ namespace UralHedgehog
                 isLocal = true;
             }
 
-            var myDataCloud = ""; //TODO: Строка из облака
+            var myDataCloud = YandexGame.savesData.svFile;
+            YandexGame.LoadProgress();
 
             if (!string.IsNullOrEmpty(myDataCloud))
             {
